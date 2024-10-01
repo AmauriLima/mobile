@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, View } from 'react-native';
+import { ActivityIndicator, Platform, SafeAreaView, View } from 'react-native';
 import { AppText } from '../components/AppText';
 import { styles } from './styles';
+
+const baseURL = Platform.select({
+  ios: 'http://localhost:3000',
+  android: 'http://10.0.2.2:3000',
+});
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,7 +15,7 @@ export default function App() {
   useEffect(() => {
     async function load() {
       const response = await fetch(
-        'https://jsonplaceholder.typicode.com/todos/1'
+        `${baseURL}/todos/1`
       );
 
       await new Promise(r => setTimeout(r, 1000));
